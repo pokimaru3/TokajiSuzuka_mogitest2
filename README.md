@@ -8,6 +8,37 @@ MailHog を使用しています。<br>
 
 ### users テーブル
 
+| カラム名          | 型                   | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| ----------------- | -------------------- | ----------- | ---------- | -------- | ----------- |
+| id                | unsigned bigint      | ◯           |            | ◯        |             |
+| name              | varchar(20)          |             |            | ◯        |             |
+| email             | varchar(255)         |             | ◯          | ◯        |             |
+| email_verified_at | timestamp            |             |            |          |             |
+| password          | varchar(255)         |             |            | ◯        |             |
+| role              | enum('user','admin') |             |            | ◯        |             |
+| created_at        | timestamp            |             |            |          |             |
+| updated_at        | timestamp            |             |            |          |             |
+
+### attendances テーブル
+
+| カラム名 | 型  | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| -------- | --- | ----------- | ---------- | -------- | ----------- |
+
+### break_times テーブル
+
+| カラム名 | 型  | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| -------- | --- | ----------- | ---------- | -------- | ----------- |
+
+### attendance_correction_requests テーブル
+
+| カラム名 | 型  | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| -------- | --- | ----------- | ---------- | -------- | ----------- |
+
+### attendance_correction_breaks テーブル
+
+| カラム名 | 型  | PRIMARY KEY | UNIQUE KEY | NOT NULL | FOREIGN KEY |
+| -------- | --- | ----------- | ---------- | -------- | ----------- |
+
 ## ER 図
 
 ## テストアカウント
@@ -22,7 +53,7 @@ MailHog を使用しています。<br>
 email:
 password: pass12345
 
-## PHPUnit を利用したテストに関して
+## PHPUnit のテストについて
 
 ```
 //テスト用データベースの作成
