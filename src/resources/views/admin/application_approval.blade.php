@@ -9,7 +9,9 @@
 @section('content')
     @include('layouts.admin_header')
     <div class="attendance-detail-container">
-        <h1 class="page__title">勤怠詳細</h1>
+        <div class="page__title-wrapper">
+            <h1 class="page__title">勤怠詳細</h1>
+        </div>
         <form id="approvalForm" action="{{ route('admin.correction.approve', $requestData->id) }}" method="POST">
             @csrf
             <div class="attendance-detail-card">
@@ -71,10 +73,12 @@
                     {{ $requestData->status === 'pending' ? 'readonly' : '' }}>{{ $requestData->remarks }}</textarea>
                 </div>
             </div>
-            <button type="submit" id="approveButton" class="attendance-detail__button"
-            {{ $requestData->status === 'approved' ? 'disabled' : '' }}>
-            {{ $requestData->status === 'approved' ? '承認済み' : '承認' }}
-            </button>
+            <div class="attendance-detail__actions">
+                <button type="submit" id="approveButton" class="btn"
+                {{ $requestData->status === 'approved' ? 'disabled' : '' }}>
+                {{ $requestData->status === 'approved' ? '承認済み' : '承認' }}
+                </button>
+            </div>
         </form>
     </div>
 

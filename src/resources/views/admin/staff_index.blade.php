@@ -9,7 +9,9 @@
 @section('content')
     @include('layouts.admin_header')
     <div class="staff-list-container">
-        <h1 class="page__title">スタッフ一覧</h1>
+        <div class="page__title-wrapper">
+            <h1 class="page__title">スタッフ一覧</h1>
+        </div>
         <table class="staff-table">
             <thead>
                 <tr>
@@ -24,7 +26,7 @@
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
                         <td>
-                            <a href="{{ route('admin.staff.attendance', $user->id) }}">詳細</a>
+                            <a href="{{ route('admin.staff.attendance', $user->id) }}" class="table__detail">詳細</a>
                         </td>
                     </tr>
                 @endforeach

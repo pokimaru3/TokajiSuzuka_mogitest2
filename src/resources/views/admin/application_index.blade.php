@@ -9,7 +9,9 @@
 @section('content')
     @include('layouts.admin_header')
     <div class="request-list">
-        <h1 class="request-list__title">申請一覧</h1>
+        <div class="page__title-wrapper">
+            <h1 class="page__title">申請一覧</h1>
+        </div>
         <div class="request-list__tabs">
             <a href="{{ route('admin.correction.list', ['tab' => 'pending']) }}" class="tab {{ $tab === 'pending' ? 'active' : '' }}">承認待ち</a>
             <a href="{{ route('admin.correction.list', ['tab' => 'approved']) }}" class="tab {{ $tab === 'approved' ? 'active' : '' }}">承認済み</a>

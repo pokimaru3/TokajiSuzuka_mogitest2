@@ -17,9 +17,14 @@
                 登録していただいたメールアドレスに認証メールを送付しました。<br>
                 メール認証を完了してください。
             </p>
-            <form class="mail_resend--form" method="POST" action="{{ route('verification.send') }}">
+            <a href="http://localhost:8025/#" class="verify-link-button" target="_blank" rel="noopener noreferrer">
+                認証はこちらから
+            </a>
+            <form id="resendForm" method="POST" action="{{ route('verification.send') }}">
                 @csrf
-                <button type="submit" class="mail_resend--button">認証メール再送</button>
+                <a href="#" class="mail_resend--link" onclick="event.preventDefault(); document.getElementById('resendForm').submit();">
+                    認証メールを再送する
+                </a>
             </form>
         </div>
     </div>

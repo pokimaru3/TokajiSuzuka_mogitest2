@@ -9,7 +9,9 @@
 @section('content')
     @include('layouts.header')
     <div class="attendance-detail-container">
-        <h1 class="page__title">勤怠詳細</h1>
+        <div class="page__title-wrapper">
+            <h1 class="page__title">勤怠詳細</h1>
+        </div>
         <form action="{{ route('attendance.update', $attendance->id) }}" method="POST">
             @csrf
             @method('PUT')
@@ -21,7 +23,8 @@
                 <div class="attendance-detail__row">
                     <span class="attendance-detail__label">日付</span>
                     <span class="attendance-detail__value">
-                        {{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年n月j日') }}
+                        <span class="attendance-date__year">{{ \Carbon\Carbon::parse($attendance->work_date)->format('Y年') }}</span>
+                        <span class="attendance-date__monthday">{{ \Carbon\Carbon::parse($attendance->work_date)->format('n月j日') }}</span>
                     </span>
                 </div>
                 <div class="attendance-detail__row">
@@ -51,9 +54,9 @@
                         <input type="time" name="break_start_{{ $index + 1 }}" value="{{ $startValue }}" class="attendance-detail__input" {{ optional($attendance->correctionRequest)->status === 'pending' ? 'readonly' : '' }}>
                         〜
                         <input type="time" name="break_end_{{ $index + 1 }}" value="{{ $endValue }}" class="attendance-detail__input" {{ optional($attendance->correctionRequest)->status === 'pending' ? 'readonly' : '' }}>
-                    </div>
-                    <div class="form__error">
-                        {{ $errors->first('break_start_' . ($index + 1)) ?: $errors->first('break_end_' . ($index + 1)) }}
+                        <div class="form__error">
+                            {{ $errors->first('break_start_' . ($index + 1)) ?: $errors->first('break_end_' . ($index + 1)) }}
+                        </div>
                     </div>
                 @endforeach
                 <div class="attendance-detail__row">
@@ -64,11 +67,31 @@
                     @endif
                 </div>
             </div>
-            @if ($attendance->correctionRequest && $attendance->correctionRequest->status === 'pending')
-                <p class="attendance-detail__notice">*承認待ちのため修正はできません。</p>
-            @else
-                <button type="submit" class="btn">修正</button>
-            @endif
+            <div class="attendance-detail__actions">
+                @if ($attendance->correctionRequest && $attendance->correctionRequest->status === 'pending')
+                    <p class="attendance-detail__notice">*承認待ちのため修正はできません。</p>
+                @else
+                    <button type="submit" class="btn">修正</button>
+                @endif
+            </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const timeInputs = document.querySelectorAll('input[type="time"]');
+            timeInputs.forEach(input => {
+                if (!input.value) input.style.color = 'transparent';
+                input.addEventListener('input', () => {
+                    input.style.color = input.value ? '#000000' : 'transparent';
+                });
+                input.addEventListener('focus', () => {
+                    input.style.color = '#000000';
+                });
+                input.addEventListener('blur', () => {
+                    if (!input.value) input.style.color = 'transparent';
+                });
+            });
+        });
+    </script>
 @endsection

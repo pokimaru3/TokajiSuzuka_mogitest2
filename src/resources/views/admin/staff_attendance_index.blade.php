@@ -3,17 +3,28 @@
 @section('title','スタッフ一覧')
 
 @section('css')
-    <link rel="stylesheet" href="{{ asset('/css/admin/staff_index.css') }}" />
+    <link rel="stylesheet" href="{{ asset('/css/admin/staff_attendance_index.css') }}" />
 @endsection
 
 @section('content')
     @include('layouts.admin_header')
     <div class="attendance-list-container">
-        <h1 class="page__title">{{ $user->name }}さんの勤怠</h1>
+        <div class="page__title-wrapper">
+            <h1 class="page__title">{{ $user->name }}さんの勤怠</h1>
+        </div>
         <div class="month-navigation">
-            <a href="{{ route('admin.staff.attendance', ['id' => $user->id,'month' => \Carbon\Carbon::parse($month)->subMonth()->format('Y-m')]) }}">← 前月</a>
-            <span class="month-display">{{ \Carbon\Carbon::parse($month)->format('Y年m月') }}</span>
-            <a href="{{ route('admin.staff.attendance', ['id' => $user->id,'month' => \Carbon\Carbon::parse($month)->addMonth()->format('Y-m')]) }}">翌月 →</a>
+            <a href="{{ route('admin.staff.attendance', ['id' => $user->id,'month' => \Carbon\Carbon::parse($month)->subMonth()->format('Y-m')]) }}" class="nav-arrow prev">
+                <img src="{{ asset('img/arrow.png') }}" alt="前月" class="arrow-icon left">
+                <span>前月</span>
+            </a>
+            <span class="month-display">
+                <img src="{{ asset('img/calendar.png') }}" alt="カレンダー" class="calendar-icon">
+                {{ \Carbon\Carbon::parse($month)->format('Y年m月') }}
+            </span>
+            <a href="{{ route('admin.staff.attendance', ['id' => $user->id,'month' => \Carbon\Carbon::parse($month)->addMonth()->format('Y-m')]) }}" class="nav-arrow next">
+                <span>翌月</span>
+                <img src="{{ asset('img/arrow.png') }}" alt="翌月" class="arrow-icon right">
+            </a>
         </div>
         <table class="attendance-table">
             <thead>
@@ -58,15 +69,17 @@
                         <td>{{ $attendance && $attendance->clock_in && $attendance->clock_out ? sprintf('%02d:%02d', $workHours, $workMinutes) : '' }}</td>
                         <td>
                             @if ($attendance)
-                                <a href="{{ route('admin.attendance.detail', ['id' => $attendance->id]) }}">詳細</a>
+                                <a href="{{ route('admin.attendance.detail', ['id' => $attendance->id]) }}" class="table__detail">詳細</a>
                             @else
-                                <span class="disabled-text">詳細</span>
+                                <span class="table__detail">詳細</span>
                             @endif
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        <button type="submit" class="btn">CSV出力</button>
+        <div class="attendance-detail__actions">
+            <button type="submit" class="btn">CSV出力</button>
+        </div>
     </div>
 @endsection

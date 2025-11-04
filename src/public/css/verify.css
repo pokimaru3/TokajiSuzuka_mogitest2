@@ -1,0 +1,50 @@
+html,
+body {
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+}
+
+.mail_notice--div {
+    margin-top: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mail_notice--content {
+    text-align: center;
+}
+
+.notice_resend--p {
+    color: #00aaff;
+    font-weight: bold;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.alert_resend--p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000000;
+    line-height: 2;
+    margin-bottom: 80px;
+}
+
+.verify-link-button {
+    background-color: #D9D9D9;
+    color: #000000;
+    font-weight: bold;
+    border: 1px solid #000000;
+    padding: 10px 50px;
+    border-radius: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.mail_resend--link {
+    margin-top: 80px;
+    color: #0073CC;
+    font-size: 20px;
+    text-decoration: none;
+}

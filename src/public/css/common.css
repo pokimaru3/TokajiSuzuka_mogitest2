@@ -40,3 +40,48 @@ form {
     font-weight: bold;
     font-size: 24px;
 }
+
+.page__title-wrapper {
+    width: 900px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.page__title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    width: 900px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.page__title::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 40px;
+    background-color: #000000;
+}
+
+.attendance-detail__notice {
+    color: #FF000080;
+    margin-top: 20px;
+    font-size: 18px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+input[type="time"] {
+    text-align: center;
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+body {
+    font-family: 'Inter', 'Helvetica Neue', 'Arial', sans-serif;
+}

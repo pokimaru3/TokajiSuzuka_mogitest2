@@ -1,0 +1,126 @@
+body {
+    background-color: #F0EFF2;
+}
+
+.attendance-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.attendance-detail-card {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    width: 900px;
+    min-height: 555px;
+}
+
+.attendance-detail__row {
+    display: flex;
+    align-items: center;
+    border-bottom: 2px solid #E1E1E1;
+    padding: 30px 60px;
+    font-size: 16px;
+    position: relative;
+}
+
+.attendance-detail__label {
+    color: #737373;
+    width: 90px;
+    font-weight: bold;
+}
+
+.attendance-date__year {
+    margin-right: 130px;
+    font-weight: bold;
+}
+
+.attendance-date__monthday {
+    color: #000000;
+    font-weight: bold;
+}
+
+.attendance-detail__value {
+    flex: 1;
+    text-align: left;
+    padding-left: 220px;
+    font-weight: bold;
+}
+
+.attendance-detail__input {
+    width: 103px;
+    height: 29px;
+    border: 1px solid #E1E1E1;
+    border-radius: 4px;
+    text-align: left;
+    margin-right: 40px;
+    margin-left: 40px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #FFFFFF;
+}
+
+.attendance-detail__row .attendance-detail__input:first-of-type {
+    margin-left: 200px;
+}
+
+.attendance-detail__textarea {
+    flex: 1;
+    border: 1px solid #E1E1E1;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    resize: none;
+    text-align: left;
+    margin-left: 200px;
+    padding: 10px 5px;
+    background-color: #fff;
+}
+
+.attendance-detail__actions {
+    width: 900px;
+    text-align: right;
+    margin: 20px auto 0;
+}
+
+.btn {
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 50px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-top: 30px;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 50px;
+}
+
+.form__error {
+    color: #ff3e3e;
+    position: absolute;
+    left: 350px;
+    bottom: 6px;
+    margin: 0;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+@media (min-width: 1440px) {
+    .attendance-detail-container {
+        padding-top: 100px;
+        padding-bottom: 30px;
+        justify-content: flex-start;
+    }
+
+    .attendance-detail-card {
+        width: 900px;
+        margin-bottom: 20px;
+    }
+
+    .attendance-detail__actions {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+}

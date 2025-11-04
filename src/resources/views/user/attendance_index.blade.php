@@ -9,11 +9,22 @@
 @section('content')
     @include('layouts.header')
     <div class="attendance-list-container">
-        <h1 class="page__title">勤怠一覧</h1>
+        <div class="page__title-wrapper">
+            <h1 class="page__title">勤怠一覧</h1>
+        </div>
         <div class="month-navigation">
-            <a href="{{ route('attendance.index', ['month' => \Carbon\Carbon::parse($month)->subMonth()->format('Y-m')]) }}">← 前月</a>
-            <span class="month-display">{{ \Carbon\Carbon::parse($month)->format('Y年m月') }}</span>
-            <a href="{{ route('attendance.index', ['month' => \Carbon\Carbon::parse($month)->addMonth()->format('Y-m')]) }}">翌月 →</a>
+            <a href="{{ route('attendance.index', ['month' => \Carbon\Carbon::parse($month)->subMonth()->format('Y-m')]) }}" class="nav-arrow prev">
+                <img src="{{ asset('img/arrow.png') }}" alt="前月" class="arrow-icon left">
+                <span>前月</span>
+            </a>
+            <span class="month-display">
+                <img src="{{ asset('img/calendar.png') }}" alt="カレンダー" class="calendar-icon">
+                {{ \Carbon\Carbon::parse($month)->format('Y年m月') }}
+            </span>
+            <a href="{{ route('attendance.index', ['month' => \Carbon\Carbon::parse($month)->addMonth()->format('Y-m')]) }}" class="nav-arrow next">
+                <span>翌月</span>
+                <img src="{{ asset('img/arrow.png') }}" alt="翌月" class="arrow-icon right">
+            </a>
         </div>
         <table class="attendance-table">
             <thead>
@@ -57,11 +68,11 @@
                         <td>{{ $attendance && $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}</td>
                         <td>{{ $attendance && $totalBreakMinutes > 0 ? sprintf('%02d:%02d', $breakHours, $breakMinutes) : '' }}</td>
                         <td>{{ $attendance && $attendance->clock_in && $attendance->clock_out ? sprintf('%02d:%02d', $workHours, $workMinutes) : '' }}</td>
-                        <td>
+                        <td class="table__detail">
                             @if ($attendance)
                                 <a href="{{ route('attendance.show', ['id' => $attendance->id]) }}">詳細</a>
                             @else
-                                <span class="disabled-text">詳細</span>
+                                <span class="table__detail">詳細</span>
                             @endif
                         </td>
                     </tr>

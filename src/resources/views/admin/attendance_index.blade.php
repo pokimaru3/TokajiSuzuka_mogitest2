@@ -8,12 +8,23 @@
 
 @section('content')
     @include('layouts.admin_header')
-    <div class="attendance-list">
-        <h1 class="page__title">{{ \Carbon\Carbon::parse($date)->isoFormat('YYYY年M月D日') }}の勤怠</h1>
+    <div class="attendance-list-container">
+        <div class="page__title-wrapper">
+            <h1 class="page__title">{{ \Carbon\Carbon::parse($date)->isoFormat('YYYY年M月D日') }}の勤怠</h1>
+        </div>
         <div class="day-navigation">
-            <a href="{{ route('admin.attendance.list', ['date' => \Carbon\Carbon::parse($date)->subDay()->format('Y-m-d')]) }}">← 前日</a>
-            <span class="month-display">{{ \Carbon\Carbon::parse($date)->format('Y年m月d日') }}</span>
-            <a href="{{ route('admin.attendance.list', ['date' => \Carbon\Carbon::parse($date)->addDay()->format('Y-m-d')]) }}">翌日 →</a>
+            <a href="{{ route('admin.attendance.list', ['date' => \Carbon\Carbon::parse($date)->subDay()->format('Y-m-d')]) }}" class="nav-arrow prev">
+                <img src="{{ asset('img/arrow.png') }}" alt="前日" class="arrow-icon left">
+                <span>前日</span>
+            </a>
+            <span class="month-display">
+                <img src="{{ asset('img/calendar.png') }}" alt="カレンダー" class="calendar-icon">
+                {{ \Carbon\Carbon::parse($date)->format('Y年m月d日') }}
+            </span>
+            <a href="{{ route('admin.attendance.list', ['date' => \Carbon\Carbon::parse($date)->addDay()->format('Y-m-d')]) }}" class="nav-arrow next">
+                <span>翌日</span>
+                <img src="{{ asset('img/arrow.png') }}" alt="翌日" class="arrow-icon right">
+            </a>
         </div>
         <table class="attendance-table">
             <thead>
@@ -34,7 +45,7 @@
                         <td>{{ $attendance->clock_out ? \Carbon\Carbon::parse($attendance->clock_out)->format('H:i') : '' }}</td>
                         <td>{{ $attendance->total_break_time ? gmdate('H:i', $attendance->total_break_time * 60) : '' }}</td>
                         <td>{{ $attendance->total_work_time ? gmdate('H:i', $attendance->total_work_time * 60) : '' }}</td>
-                        <td><a href="{{ route('admin.attendance.detail', $attendance->id) }}">詳細</a></td>
+                        <td><a href="{{ route('admin.attendance.detail', $attendance->id) }}" class="table__detail">詳細</a></td>
                     </tr>
                 @empty
                     {{-- 空白にする --}}
