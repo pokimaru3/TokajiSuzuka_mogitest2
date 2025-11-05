@@ -1,5 +1,60 @@
 # 環境構築
 
+1. `git clone https://github.com/pokimaru3/TokajiSuzuka_mogitest2.git`
+2. DockerDesktop アプリを立ち上げる
+3. `docker-compose up -d --build`
+
+> _Mac の M1・M2 チップの PC の場合、`no matching manifest for linux/arm64/v8 in the manifest list entries`のメッセージが表示されビルドができないことがあります。
+> エラーが発生する場合は、docker-compose.yml ファイルの「mysql」内に「platform」の項目を追加で記載してください_
+
+```bash
+mysql:
+    platform: linux/x86_64(この文追加)
+    image: mysql:8.0.26
+    environment:
+```
+
+**Laravel 環境構築**
+
+1. `docker-compose exec php bash`
+2. `composer install`
+3. 「.env.example」ファイルを 「.env」ファイルに命名を変更。または、新しく.env ファイルを作成
+4. .env に以下の環境変数を追加
+
+```text
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=laravel_db
+DB_USERNAME=laravel_user
+DB_PASSWORD=laravel_pass
+```
+
+5. アプリケーションキーの作成
+
+```bash
+php artisan key:generate
+```
+
+6. マイグレーションの実行
+
+```bash
+php artisan migrate
+```
+
+7. シーディングの実行
+
+```bash
+php artisan db:seed
+```
+
+##使用技術（実行環境）
+
+- PHP8.1.33
+- Laravel8.83.8
+- MySQL9.3.0
+- Docker / docker-compose
+
 ## メール認証
 
 MailHog を使用しています。<br>
@@ -12,7 +67,9 @@ MailHog を使用しています。<br>
 brew install mailhog
 ```
 
-Windows 1.以下のページからバイナリをダウンロード
+#### Windows
+
+1.以下のページからバイナリをダウンロード
 https://github.com/mailhog/MailHog/releases <br> 2.ダウンロードした MailHog.exe を任意のフォルダに配置し、コマンドプロンプトで起動します。<br>
 
 ```bash
@@ -141,20 +198,21 @@ mysql -u root -p
 create database test_database;
 ```
 
-config ディレクトリの中の database.php を開き、mysql の配列部分をコピーして以下に新たに mysql_test を作成
+#### config ディレクトリの中の database.php を開き、mysql の配列部分をコピーして以下に新たに mysql_test を作成
+
 以下の項目を編集
 
 - 'database' => env('DB_DATABASE', 'forge') -> 'database' => 'test_database'
 - 'username' => env('DB_USERNAME', 'forge') -> 'username' => 'root'
 - 'password' => env('DB_PASSWORD', '') -> 'password' => 'root'
 
-テスト用の.env ファイル作成
+#### テスト用の.env ファイル作成
 
 ```
 $ cp .env .env.testing
 ```
 
-.env.testing ファイルの APP_ENV と APP_KEY を編集
+#### .env.testing ファイルの APP_ENV と APP_KEY を編集
 
 - APP_NAME=Laravel
 - APP_ENV=local -> APP_ENV=test
@@ -162,7 +220,7 @@ $ cp .env .env.testing
 - APP_DEBUG=true
 - APP_URL=http://localhost
 
-DB_DATABASE,DB_USERNAME,DB_PASSWORD を編集
+#### DB_DATABASE,DB_USERNAME,DB_PASSWORD を編集
 
 - DB_CONNECTION=mysql_test
 - DB_HOST=mysql
@@ -171,22 +229,28 @@ DB_DATABASE,DB_USERNAME,DB_PASSWORD を編集
 - DB_USERNAME=laravel_user -> DB_USERNAME=root
 - DB_PASSWORD=laravel_pass -> DB_PASSWORD=root
 
-アプリケーションキーを作成
+#### アプリケーションキーを作成
 
 ```
 $ php artisan key:generate --env=testing
 ```
 
-マイグレーション
+#### マイグレーション
 
 ```
 $ php artisan migrate --env=testing
 ```
 
-phpunit.xml の DB_CONNECTION と DB_DATABASE を編集
+#### PHPUnit の設定
 
-- <server name="DB_CONNECTION" value="mysql_test"/>
-- <server name="DB_DATABASE" value="test_database"/>
+テストを専用データベースで実行するため、`phpunit.xml` を編集してください。
+
+```diff
+- <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
+- <!-- <server name="DB_DATABASE" value=":memory:"/> -->
++ <server name="DB_CONNECTION" value="mysql_test"/>
++ <server name="DB_DATABASE" value="demo_test"/>
+```
 
 ```
 php artisan test
