@@ -1,3 +1,8 @@
+# プロジェクト概要
+
+coachtech 勤怠管理アプリ
+出勤・退勤・休憩時間を記録し、勤怠情報を管理できるシステムです。
+
 # 環境構築
 
 1. `git clone https://github.com/pokimaru3/TokajiSuzuka_mogitest2.git`
