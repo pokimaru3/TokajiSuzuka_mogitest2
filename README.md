@@ -48,7 +48,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
-##使用技術（実行環境）
+## 使用技術（実行環境）
 
 - PHP8.1.33
 - Laravel8.83.8
@@ -251,6 +251,8 @@ $ php artisan migrate --env=testing
 + <server name="DB_CONNECTION" value="mysql_test"/>
 + <server name="DB_DATABASE" value="demo_test"/>
 ```
+
+#### テストの実行
 
 ```
 php artisan test
