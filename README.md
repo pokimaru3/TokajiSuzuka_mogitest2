@@ -4,6 +4,42 @@
 
 MailHog を使用しています。<br>
 
+1. MailHog のインストール
+
+#### macOS (Homebrew)
+
+```bash
+brew install mailhog
+```
+
+Windows 1.以下のページからバイナリをダウンロード
+https://github.com/mailhog/MailHog/releases <br> 2.ダウンロードした MailHog.exe を任意のフォルダに配置し、コマンドプロンプトで起動します。<br>
+
+```bash
+sudo apt-get install golang-go
+go install github.com/mailhog/MailHog@latest
+```
+
+2. MailHog の起動
+
+```bash
+mailhog
+```
+
+起動後、次の URL で Web UI が開けます。
+http://localhost:8025
+
+3. Laravel の設定
+   .env ファイルに以下を追記または変更してください：
+   MAIL_MAILER=smtp
+   MAIL_HOST=localhost
+   MAIL_PORT=1025
+   MAIL_USERNAME=null
+   MAIL_PASSWORD=null
+   MAIL_ENCRYPTION=null
+   MAIL_FROM_ADDRESS="example@example.com"
+   MAIL_FROM_NAME="${APP_NAME}"
+
 ## テーブル仕様
 
 ### users テーブル
@@ -72,6 +108,8 @@ MailHog を使用しています。<br>
 | updated_at            | timestamp       |             |            |          |                                    |
 
 ## ER 図
+
+![alt](ER.png)
 
 ## テストアカウント
 
@@ -145,19 +183,10 @@ $ php artisan key:generate --env=testing
 $ php artisan migrate --env=testing
 ```
 
-phpunit.xml の編集
+phpunit.xml の DB_CONNECTION と DB_DATABASE を編集
 
-<php>
-    <server name="APP_ENV" value="testing"/>
-    <server name="BCRYPT_ROUNDS" value="4"/>
-    <server name="CACHE_DRIVER" value="array"/>
--    <server name="DB_CONNECTION" value="mysql_test"/>
--    <server name="DB_DATABASE" value="test_database"/>
-    <server name="MAIL_MAILER" value="array"/>
-    <server name="QUEUE_CONNECTION" value="sync"/>
-    <server name="SESSION_DRIVER" value="array"/>
-    <server name="TELESCOPE_ENABLED" value="false"/>
-</php>
+- <server name="DB_CONNECTION" value="mysql_test"/>
+- <server name="DB_DATABASE" value="test_database"/>
 
 ```
 php artisan test
