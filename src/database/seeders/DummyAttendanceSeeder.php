@@ -17,16 +17,21 @@ class DummyAttendanceSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::factory(5)->create();
+        $users = User::factory(2)->create();
+
+        $start = Carbon::now()->subMonths(6)->startOfMonth();
+        $end = Carbon::now()->endOfDay();
+
+        $dateRange = [];
+        for ($date = $start->copy(); $date <= $end; $date->addDay()) {
+            $dateRange[] = $date->copy();
+        }
 
         foreach ($users as $user) {
-            $start = Carbon::now()->subMonths(6)->startOfMonth();
-            $end = Carbon::now()->endOfMonth();
+            $workDays = collect($dateRange)->random(30);
 
-            for ($date = $start->copy(); $date <= $end; $date->addDay()) {
-                if ($date->isWeekend()) continue;
-
-                $clockIn = $date->copy()->setTime(9, 0);
+            foreach ($workDays as $date) {
+                $clockIn  = $date->copy()->setTime(9, 0);
                 $clockOut = $date->copy()->setTime(18, 0);
 
                 $attendance = Attendance::factory()->create([

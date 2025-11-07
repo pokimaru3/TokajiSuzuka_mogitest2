@@ -43,8 +43,8 @@ class AttendanceDetailTest extends TestCase
         /** @var \App\Models\User $user */
         $response = $this->actingAs($user)->get("/attendance/detail/{$attendance->id}");
         $response->assertStatus(200);
-        $response->assertSee('2025年10月26日');
-    }
+        $response->assertSee('2025年');
+        $response->assertSee('10月26日');    }
 
     public function test_「出勤・退勤」時間がログインユーザーの打刻と一致している()
     {

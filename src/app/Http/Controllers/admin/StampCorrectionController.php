@@ -34,7 +34,7 @@ class StampCorrectionController extends Controller
 
     public function approve($id)
     {
-        $requestData = AttendanceCorrectionRequest::with('attendance')->findOrFail($id);
+        $requestData = AttendanceCorrectionRequest::with(['attendance', 'correctionBreaks'])->findOrFail($id);
 
         $requestData->status = 'approved';
         $requestData->save();
@@ -42,6 +42,28 @@ class StampCorrectionController extends Controller
         $attendance = $requestData->attendance;
         $attendance->clock_in = $requestData->requested_clock_in;
         $attendance->clock_out = $requestData->requested_clock_out;
+
+        if ($requestData->correctionBreaks->isNotEmpty()) {
+            $attendance->breaks()->delete();
+            foreach ($requestData->correctionBreaks as $correctionBreak) {
+                $attendance->breaks()->create([
+                    'break_start' => $correctionBreak->requested_break_start,
+                    'break_end' => $correctionBreak->requested_break_end
+                ]);
+            }
+        }
+
+        $totalWorkMinutes = $attendance->clock_out->diffInMinutes($attendance->clock_in);
+        $totalBreakMinutes = 0;
+
+        foreach ($attendance->breaks as $break) {
+            if ($break->break_start && $break->break_end) {
+                $totalBreakMinutes += $break->break_end->diffInMinutes($break->break_start);
+            }
+        }
+
+        $attendance->total_work_time = $totalWorkMinutes - $totalBreakMinutes;
+        $attendance->total_break_time = $totalBreakMinutes;
         $attendance->save();
 
         return response()->json(['status' => 'approved']);

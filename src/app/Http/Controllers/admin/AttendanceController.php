@@ -41,6 +41,7 @@ class AttendanceController extends Controller
         if (auth()->user()->role === 'admin') {
             $attendance->remarks = $request->remarks;
             $attendance->save();
+            $attendance->correctionRequest()->delete();
         } else {
             if ($request->filled('remarks')) {
                 \App\Models\AttendanceCorrectionRequest::create([
@@ -68,10 +69,10 @@ class AttendanceController extends Controller
             $break->break_end = $end ? Carbon::parse($dateString . ' ' . $end) : null;
             $break->attendance_id = $attendance->id;
             $break->save();
-    
+
             $updatedBreaks[] = $break->id;
         }
-        
+
         $attendance->load('breaks');
 
         $totalBreakMinutes = $attendance->breaks->sum(function ($break) {

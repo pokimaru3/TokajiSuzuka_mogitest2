@@ -92,15 +92,16 @@ mailhog
 http://localhost:8025
 
 3. Laravel の設定
-   .env ファイルに以下を追記または変更してください：
-   MAIL_MAILER=smtp
-   MAIL_HOST=localhost
-   MAIL_PORT=1025
-   MAIL_USERNAME=null
-   MAIL_PASSWORD=null
-   MAIL_ENCRYPTION=null
-   MAIL_FROM_ADDRESS="example@example.com"
-   MAIL_FROM_NAME="${APP_NAME}"
+   .env ファイルに以下を追記または変更してください：<br>
+
+- MAIL_MAILER=smtp
+- MAIL_HOST=localhost
+- MAIL_PORT=1025
+- MAIL_USERNAME=null
+- MAIL_PASSWORD=null
+- MAIL_ENCRYPTION=null
+- MAIL_FROM_ADDRESS="example@example.com"
+- MAIL_FROM_NAME="${APP_NAME}"
 
 ## テーブル仕様
 
@@ -181,17 +182,23 @@ http://localhost:8025
 
 ---
 
-一般ユーザー<br> 1.宮沢 京助
-email: shuhei.nomura@example.com
-password: pass12345<br> 2.青山 浩
-email: snakamura@example.net
-password: pass12345<br> 3.工藤 充
-email: rika.nakamura@example.org
-password: pass12345<br> 4.松本 太一
-email: kenichi54@example.net
-password: pass12345<br> 5.桐山 裕美子
-email: satomi.uno@example.org
-password: pass12345<br>
+一般ユーザー<br>
+
+1. 若松 春香
+   email: xmurayama@example.com
+   password: pass12345<br>
+2. 小林 治
+   email: atsushi.yamagishi@example.com
+   password: pass12345<br>
+3. 大垣 京助
+   email: tsubasa20@example.com
+   password: pass12345<br>
+4. 田辺 直子
+   email: yamada.yui@example.org
+   password: pass12345<br>
+5. 原田 知実
+   email: matsumoto.chiyo@example.org
+   password: pass12345<br>
 
 ## PHPUnit のテストについて
 
@@ -207,43 +214,43 @@ create database test_database;
 
 以下の項目を編集
 
-- 'database' => env('DB_DATABASE', 'forge') -> 'database' => 'test_database'
-- 'username' => env('DB_USERNAME', 'forge') -> 'username' => 'root'
-- 'password' => env('DB_PASSWORD', '') -> 'password' => 'root'
+- 'database' => 'test_database'
+- 'username' => 'root'
+- 'password' => 'root'
 
 #### テスト用の.env ファイル作成
 
 ```
-$ cp .env .env.testing
+cp .env .env.testing
 ```
 
 #### .env.testing ファイルの APP_ENV と APP_KEY を編集
 
 - APP_NAME=Laravel
-- APP_ENV=local -> APP_ENV=test
-- APP_KEY=base64:vPtYQu63T1fmcyeBgEPd0fJjvmnzjYMaUf7d5iuB+c= -> APP_KEY=
+- APP_ENV=test
+- APP_KEY=
 - APP_DEBUG=true
 - APP_URL=http://localhost
 
-#### DB_DATABASE,DB_USERNAME,DB_PASSWORD を編集
+#### .env.testing ファイルの DB_DATABASE,DB_USERNAME,DB_PASSWORD を編集
 
 - DB_CONNECTION=mysql_test
 - DB_HOST=mysql
 - DB_PORT=3306
-- DB_DATABASE=laravel_db -> DB_DATABASE=test_database
-- DB_USERNAME=laravel_user -> DB_USERNAME=root
-- DB_PASSWORD=laravel_pass -> DB_PASSWORD=root
+- DB_DATABASE=test_database
+- DB_USERNAME=root
+- DB_PASSWORD=root
 
 #### アプリケーションキーを作成
 
 ```
-$ php artisan key:generate --env=testing
+php artisan key:generate --env=testing
 ```
 
 #### マイグレーション
 
 ```
-$ php artisan migrate --env=testing
+php artisan migrate --env=testing
 ```
 
 #### PHPUnit の設定

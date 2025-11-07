@@ -68,9 +68,9 @@ class AttendanceController extends Controller
                     $totalWorkMinutes = Carbon::parse($attendance->clock_in)
                         ->diffInMinutes(Carbon::parse($attendance->clock_out)) - $totalBreakMinutes;
 
-                    $attendance->update([
-                        'total_break_time' => round($totalBreakMinutes / 60, 2),
-                        'total_work_time' => round($totalWorkMinutes / 60, 2),
+                        $attendance->update([
+                        'total_break_time' => (int) $totalBreakMinutes,
+                        'total_work_time' => (int) max(0, $totalWorkMinutes),
                     ]);
                 }
                 break;

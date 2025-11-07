@@ -39,7 +39,7 @@ class EmailVerificationTest extends TestCase
         $response = $this->actingAs($user)->get('/email/verify');
         $response->assertStatus(200);
         $response->assertSee('登録していただいたメールアドレスに認証メールを送付しました。');
-        $response->assertSee('認証メール再送');
+        $response->assertSee('認証メールを再送する');
     }
 
     public function test_メール認証サイトのメール認証を完了すると、勤怠登録画面に遷移する()

@@ -100,6 +100,7 @@
                         const result = await response.json();
                         if (result.status === 'approved') {
                             button.textContent = '承認済み';
+                            button.disabled = true;
                             button.classList.add('approved');
                         }
                     } else {

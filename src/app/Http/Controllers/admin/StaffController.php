@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Attendance;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class StaffController extends Controller
 {
@@ -20,10 +21,15 @@ class StaffController extends Controller
     {
         $user = User::findOrFail($userId);
 
-        $month = $request->input('month',now()->format('Y-m'));
+        $month = $request->input('month', now()->format('Y-m'));
 
-        $startOfMonth = \Carbon\Carbon::parse($month)->startOfMonth();
-        $endOfMonth = \Carbon\Carbon::parse($month)->endOfMonth();
+        $startOfMonth = Carbon::parse($month)->startOfMonth();
+        $endOfMonth = Carbon::parse($month)->endOfMonth();
+
+        $days = collect();
+        for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {
+            $days->push($date->toDateString());
+        }
 
         $days = collect();
         for ($date = $startOfMonth->copy(); $date->lte($endOfMonth); $date->addDay()) {

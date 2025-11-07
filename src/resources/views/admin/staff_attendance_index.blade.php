@@ -41,24 +41,36 @@
                 @foreach ($days as $date)
                     @php
                         $attendance = $attendances->get($date);
-                    @endphp
-                    @php
+                        $totalBreakMinutes = 0;
+                        $workHours = $workMinutes = 0;
+                        $breakHours = $breakMinutes = 0;
+
                         if ($attendance) {
-                            $totalBreakMinutes = $attendance->breaks->sum(fn($b) =>
-                                $b->break_start && $b->break_end
-                                    ? \Carbon\Carbon::parse($b->break_start)->diffInMinutes(\Carbon\Carbon::parse($b->break_end))
-                                    : 0
-                            );
+                            if (!is_null($attendance->total_break_time)) {
+                                $totalBreakMinutes = (int) $attendance->total_break_time;
+                            } else {
+                                $totalBreakMinutes = $attendance->breaks->sum(function ($b) {
+                                    if ($b->break_start && $b->break_end) {
+                                        return \Carbon\Carbon::parse($b->break_start)
+                                            ->diffInMinutes(\Carbon\Carbon::parse($b->break_end));
+                                    }
+                                    return 0;
+                                });
+                            }
                             $breakHours = floor($totalBreakMinutes / 60);
                             $breakMinutes = $totalBreakMinutes % 60;
-                            if ($attendance->clock_in && $attendance->clock_out) {
+                            if (!is_null($attendance->total_work_time)) {
+                                $totalWorkMinutes = (int) $attendance->total_work_time;
+                            } elseif ($attendance->clock_in && $attendance->clock_out) {
                                 $totalWorkMinutes = \Carbon\Carbon::parse($attendance->clock_in)
-                                    ->diffInMinutes(\Carbon\Carbon::parse($attendance->clock_out)) - $totalBreakMinutes;
-                                $workHours = floor($totalWorkMinutes / 60);
-                                $workMinutes = $totalWorkMinutes % 60;
+                                    ->diffInMinutes(\Carbon\Carbon::parse($attendance->clock_out))
+                                    - $totalBreakMinutes;
+                                $totalWorkMinutes = max(0, $totalWorkMinutes);
                             } else {
-                                $workHours = $workMinutes = 0;
+                                $totalWorkMinutes = 0;
                             }
+                            $workHours = floor($totalWorkMinutes / 60);
+                            $workMinutes = $totalWorkMinutes % 60;
                         }
                     @endphp
                     <tr>

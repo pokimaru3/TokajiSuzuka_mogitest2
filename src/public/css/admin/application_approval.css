@@ -100,7 +100,8 @@ body {
 
 .btn:disabled {
     background-color: #696969;
-    letter-spacing: 0.15em;
+    color: #FFFFFF;
+    cursor: not-allowed;
 }
 
 @media (min-width: 1440px) {
