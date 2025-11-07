@@ -261,7 +261,7 @@ php artisan migrate --env=testing
 - <!-- <server name="DB_CONNECTION" value="sqlite"/> -->
 - <!-- <server name="DB_DATABASE" value=":memory:"/> -->
 + <server name="DB_CONNECTION" value="mysql_test"/>
-+ <server name="DB_DATABASE" value="demo_test"/>
++ <server name="DB_DATABASE" value="test_database"/>
 ```
 
 #### テストの実行
