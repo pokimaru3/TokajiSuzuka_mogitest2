@@ -70,7 +70,7 @@ MailHog は Docker 上で起動し、実際のメールは送信されず Web UI
 .env ファイルに以下を追記または変更してください：<br>
 
 - MAIL_MAILER=smtp
-- MAIL_HOST=localhost
+- MAIL_HOST=host.docker.internal
 - MAIL_PORT=1025
 - MAIL_USERNAME=null
 - MAIL_PASSWORD=null
