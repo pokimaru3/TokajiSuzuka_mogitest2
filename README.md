@@ -62,37 +62,12 @@ php artisan db:seed
 
 ## メール認証
 
-MailHog を使用しています。<br>
+MailHog を使用しています。
+MailHog は Docker 上で起動し、実際のメールは送信されず Web UI で確認できます。<br>
 
-1. MailHog のインストール
+### Laravel の設定
 
-#### macOS (Homebrew)
-
-```bash
-brew install mailhog
-```
-
-#### Windows
-
-1.以下のページからバイナリをダウンロード
-https://github.com/mailhog/MailHog/releases <br> 2.ダウンロードした MailHog.exe を任意のフォルダに配置し、コマンドプロンプトで起動します。<br>
-
-```bash
-sudo apt-get install golang-go
-go install github.com/mailhog/MailHog@latest
-```
-
-2. MailHog の起動
-
-```bash
-mailhog
-```
-
-起動後、次の URL で Web UI が開けます。
-http://localhost:8025
-
-3. Laravel の設定
-   .env ファイルに以下を追記または変更してください：<br>
+.env ファイルに以下を追記または変更してください：<br>
 
 - MAIL_MAILER=smtp
 - MAIL_HOST=localhost
@@ -102,6 +77,16 @@ http://localhost:8025
 - MAIL_ENCRYPTION=null
 - MAIL_FROM_ADDRESS="example@example.com"
 - MAIL_FROM_NAME="${APP_NAME}"
+
+### MailHog の起動
+
+```bash
+docker run -d -p 1025:1025 -p 8025:8025 mailhog/mailhog
+```
+
+#### 起動後、次の URL で Web UI が開けます。
+
+http://localhost:8025
 
 ## テーブル仕様
 
