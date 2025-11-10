@@ -22,7 +22,7 @@ mysql:
 > mysql コンテナが動かない場合以下のコマンドを実行してください。
 
 1. `docker compose down -v`
-2. `rm -rf ./docker/mysql/data`
+2. `sudo rm -rf ./docker/mysql/data`
 3. `docker system prune -f`
 4. `docker compose up -d --build`
 
