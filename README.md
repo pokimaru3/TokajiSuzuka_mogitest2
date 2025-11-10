@@ -21,10 +21,10 @@ mysql:
 
 > mysql コンテナが動かない場合以下のコマンドを実行してください。
 
-`docker compose down -v`
-`rm -rf ./docker/mysql/data`
-`docker system prune -f`
-`docker compose up -d --build`
+1. `docker compose down -v`
+2. `rm -rf ./docker/mysql/data`
+3. `docker system prune -f`
+4. `docker compose up -d --build`
 
 **Laravel 環境構築**
 
