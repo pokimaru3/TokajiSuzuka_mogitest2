@@ -19,6 +19,24 @@ mysql:
     environment:
 ```
 
+> mysql コンテナが動かない場合以下のコマンドを実行してください。
+
+# 1. もしコンテナがあれば削除 & DB データも削除
+
+`docker compose down -v`
+
+# 2. ローカルに残ってる MySQL データも削除
+
+`rm -rf ./docker/mysql/data`
+
+# 3. 使ってないイメージやキャッシュも掃除
+
+`docker system prune -f`
+
+# 4. まっさらな環境で起動
+
+`docker compose up -d --build`
+
 **Laravel 環境構築**
 
 1. `docker-compose exec php bash`
