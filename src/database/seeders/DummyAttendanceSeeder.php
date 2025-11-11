@@ -17,7 +17,7 @@ class DummyAttendanceSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::factory(2)->create();
+        $users = User::factory(5)->create();
 
         $start = Carbon::now()->subMonths(6)->startOfMonth();
         $end = Carbon::now()->endOfDay();

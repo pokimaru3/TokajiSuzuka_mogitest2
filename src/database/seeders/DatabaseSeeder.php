@@ -13,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(DummyAttendanceSeeder::class);
+        $this->call([
+            DummyAttendanceSeeder::class,
+            AdminUserSeeder::class,
+        ]);
     }
 }
