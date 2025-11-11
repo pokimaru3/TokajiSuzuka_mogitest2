@@ -176,20 +176,20 @@ http://localhost:8025
 
 一般ユーザー<br>
 
-1. 若松 春香
-   email: xmurayama@example.com
+1. ユーザー１
+   email: test1@example.com
    password: pass12345<br>
-2. 小林 治
-   email: atsushi.yamagishi@example.com
+2. ユーザー２
+   email: test2@example.com
    password: pass12345<br>
-3. 大垣 京助
-   email: tsubasa20@example.com
+3. ユーザー３
+   email: test3@example.com
    password: pass12345<br>
-4. 田辺 直子
-   email: yamada.yui@example.org
+4. ユーザー４
+   email: test4@example.org
    password: pass12345<br>
-5. 原田 知実
-   email: matsumoto.chiyo@example.org
+5. ユーザー５
+   email: test5@example.org
    password: pass12345<br>
 
 ## PHPUnit のテストについて
